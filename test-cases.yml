@@ -1,0 +1,509 @@
+---
+- summary: |
+    Проверка возможности провести игру без регистрации
+  requirement: |
+    Пользователь должен иметь возможность провести игру без регистрации
+  prerequisites: |
+    открыта страница сайта https://codebattle.hexlet.io/
+  test-data: |
+    empty
+  steps:
+    - Нажимаем на кнопку "TRY SIMPLE BATTLE" 
+  expected-result: |
+    Пользователь должен попасть в игру
+
+- summary: |
+    Проверка регистрации пользователя
+  requirement: |
+    Пользователь должен иметь возможность зарегистрироваться на сайте
+  prerequisites:
+    Открыта страница регистрации https://codebattle.hexlet.io/users/new?locale=en&next=%2F 
+  test-data: |
+    Nickname = Alextest Email = alexmurderer@mail.ru Password = alexov234
+  steps:
+    - Вводим Nickname
+    - Вводим Email
+    - Вводим Password
+    - Потверждаем Password в графе Password Confirmation
+    - Нажимаем кнопку Submit
+  expected-result: |
+    Пользователь должен попасть на главную страницу, в верхней правой части страницы отображается созданный никнейм
+
+- summary: |
+    Проверка авторизации пользователя
+  requirement: |
+    Пользователь должен иметь возможность авторизоваться на сайте используя email и пароль
+  prerequisites:
+    Открыта страница авторизации https://codebattle.hexlet.io/session/new?locale=en&next=%2F
+  test-data: |
+    Email = alexmurderer@mail.ru Password = alexov234
+  steps:
+    - Вводим Email
+    - Вводим Password
+    - Нажимаем кнопку Submit
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+
+- summary: |
+    Проверка авторизации через Github
+  requirement: |
+    Пользователь должен иметь возможность авторизоваться на сайте используя Github
+  prerequisites: |
+    Открыта страница авторизации https://codebattle.hexlet.io/session/new?locale=en&next=%2F
+  test-data: |
+    Username  = Alextest
+    Password = 1231234
+  steps:
+    - Нажать 'Sign in with Github'
+    - Ввести Username и Password
+    - Нажать кнопку "Sign in" 
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+
+- summary: |
+    Проверка авторизации через Discord
+  requirement: |
+    Пользователь должен иметь возможность авторизоваться на сайте используя Discord
+  prerequisites: |
+    Открыта страница авторизации https://codebattle.hexlet.io/session/new?locale=en&next=%2F
+  test-data: |
+    email  = Alextest@gmail.com
+    Password = 1231234
+  steps:
+    - Нажать 'Sign in with Discord'
+    - Ввести email и Password
+    - Нажать кнопку "Вход" 
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+
+- summary: |
+    Проверка восстановления пароля
+  requirement: |
+    Пользователь должен иметь возможность восстановить пароль
+  prerequisites:
+    Открыта страница авторизации https://codebattle.hexlet.io/session/new?locale=en&next=%2F, открыт email
+  test-data: |
+    Email = alexmurderer@mail.ru
+  steps:
+    - Нажимаем на кнопку Forgot your password?
+    - Вводим Email
+    - Нажимаем кнопку Submit
+    - Проверяем эллектронную почту на наличие письма
+    - Нажимаем на ссылку указаную в письме
+    - Придумываем новый пароль
+    - Нажимаем кнопку Save
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+
+- summary: |
+    Неуспешная регистрации невалидного email
+  requirement: |
+    На странице регистрации в поле "Email" должен быть валидный email 
+  prerequisites:
+    Открыта страница регистрации https://codebattle.hexlet.io/users/new?locale=en&next=%2F
+  test-data: |
+    Email = ivan2@gmaiderl.xe Nickname = asdasdasd Password = 12341234
+  steps:
+    - Вводим Nickname
+    - Вводим Email
+    - Вводим Password
+    - Потверждаем Password в графе Password Confirmation
+    - Нажимаем кнопку Submit
+  expected-result: |
+    Пользователь не сможет зарегистрироваться, в графе Nickname будет написано "Can contain letters, numbers and underscores and should begin with a Latin letter"
+
+- summary: |
+    Неуспешная регистрация никнейма состоящего из одних цифр
+  requirement: |
+    На странице регистрации поле "Nickname" может содержать буквы, цифры и символы подчеркивания и должен начинаться с латинской
+    буквы, а также содержать от 3 до 16 символов
+  prerequisites:
+    Открыта страница регистрации https://codebattle.hexlet.io/users/new?locale=en&next=%2F
+  test-data: |
+    Email = ivan2@gmaiderl.xe Nickname = 123321 Password = 123123
+  steps:
+    - Вводим Nickname
+    - Вводим Email
+    - Вводим Password
+    - Потверждаем Password в графе Password Confirmation
+    - Нажимаем кнопку Submit
+  expected-result: |
+    Пользователь не сможет зарегистрироваться, в графе email будет написано "Invalid email"
+
+- summary: |
+    Проверка возможности отправления сообщений в чат
+  requirement: |
+    Авторизованный пользователь должен иметь возможность писать в чат General 
+  prerequisites:
+    Открыта страница https://codebattle.hexlet.io/#lobby
+  test-data: |
+    emty
+  steps:
+    - Находим чаи General в левом низу экрана
+    - В поисковой строке чата General пишем рандомный текст
+    - Нажимаем кнопку Send
+  expected-result: |
+    Сообщение появится в чате
+
+- summary: |
+    Проверка возможности создания игры с авторизованным пользователем
+  requirement: |
+    Авторизованный пользователь должен иметь возможность создать игру, с другим авторизованным пользователем, другом или с ботом
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+  test-data: |
+    emty
+  steps:
+    - В правом верхнем углу нажимаем кнопку "Create a game"
+    - В game type нажимаем кнопку "With other users"
+    - Нажимаем кнопку Create battle
+    - Нажимаем кнопку "Continue"
+    - Ожидаем присоединения другого игрока 
+  expected-result: |
+    Открывается игра с рандомным игроком
+
+- summary: |
+    Проверка возможности создания игры по уровню сложности
+  requirement: |
+    Авторизованный пользователь должен иметь возможность выбирать игру по уровню сложности
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+  test-data: |
+    emty
+  steps:
+    - В правом верхнем углу нажимаем кнопку "Create a game"
+    - В Level выбираем 2 звезды
+    - Нажимаем кнопку Create battle
+    - Нажимаем кнопку "Continue"
+    - Ожидаем присоединения другого игрока 
+  expected-result: |
+    Открывается игра по уровню сложности
+
+- summary: |
+    Проверка возможности создания игры с таймером
+  requirement: |
+    Авторизованный Пользователь должен иметь возможность создать игру таймером от 3 до 60 минут
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+  test-data: |
+    emty
+  steps:
+    - В правом верхнем углу нажимаем кнопку "Create a game"
+    - В Time control ставим ползунок на 15 минут
+    - Нажимаем кнопку Create battle
+    - Нажимаем кнопку "Continue"
+    - Ожидаем присоединения другого игрока 
+  expected-result: |
+    Открывается игра с выбранным временем 
+
+- summary: |
+    Проверка возможности создания игры по тегу или по имени задачи
+  requirement: |
+    Авторизованный пользователь должен иметь возможность выбрать задачу по тегу или по имени
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+  test-data: |
+    emty
+  steps:
+    - В правом верхнем углу нажимаем кнопку "Create a game"
+    - В Choose task by name or tags выбираем "boom"
+    - Нажимаем кнопку Create battle
+    - Нажимаем кнопку "Continue"
+    - Ожидаем присоединения другого игрока 
+  expected-result: |
+    Открывается игра с выбранной задачей
+
+- summary: |
+    Проверка возможности следить за ходом игры другого игрока
+  requirement: |
+    Авторизованный пользователь должен иметь возможность следить за ходом игры других игроков
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+  test-data: |
+    emty
+  steps:
+    - В лобби выбираем игрока
+    - Во вкладке Actions нажимаем кнопку 'Show'
+  expected-result: |
+    Открывается игра выбранного игрока
+
+- summary: |
+    Проверка возможности присоединения к уже созданной игре
+  requirement: |
+    Авторизованный пользователь должен иметь возможность присоединиться к созданной другим авторизованным пользователем игре
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+  test-data: |
+    emty
+  steps:
+    - В лобби выбираем игрока
+    - Во вкладке Actions нажимаем кнопку 'Fight'
+  expected-result: |
+    Открывается игра с другим игроком
+
+- summary: |
+    Проверка возможности создания турнира
+  requirement: |
+    Авторизованный пользователь должен иметь возможность создавать турнир
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#tournaments
+  test-data: |
+    Параметры турнира:Name=My fancy tour, Type=team Description=Markdown description.[stream_link](https://codebattle.hexlet.io),
+    Starts at (Asia/Omsk)=10/20/20223 11:53 PM, Access type=public, Task strategy=game, Task provider=level, Level=elementary,
+    Players limit=64, Default language=js, Match timeout=177, Break duration sec=42, Team 1 name=Backend, Team 2 name=Frontend
+    Rounds to win=3
+  steps:
+    - Нажимаем кнопку "Tournaments Info"
+    - В "Create a new tournament" нажимаем кнопку "Create"
+  expected-result: |
+    Откроется страница турнира
+
+- summary: |
+    Проверка серверных запросов создания турнира через devtools
+  requirement: |
+    Авторизованный пользователь должен иметь возможность создавать турнир
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#tournaments
+  test-data: |
+    Параметры турнира:Name=My fancy tour, Type=team Description=Markdown description.[stream_link](https://codebattle.hexlet.io),
+    Starts at (Asia/Omsk)=10/20/20223 11:53 PM, Access type=public, Task strategy=game, Task provider=level, Level=elementary,
+    Players limit=64, Default language=js, Match timeout=177, Break duration sec=42, Team 1 name=Backend, Team 2 name=Frontend
+    Rounds to win=3
+  steps:
+    - Открываем devtools
+    - Нажимаем кнопку "Tournaments Info"
+    - В "Create a new tournament" нажимаем кнопку "Create"
+  expected-result: |
+    Сервер обрабатывает все запросы без ошибок
+
+- summary: |
+    Проверка возможности просматривания уже созданного турнира
+  requirement: |
+    Авторизованный пользователь должен иметь возможность просматривать уже созданные турниры
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#tournaments
+  test-data: |
+    emty
+  steps:
+    - В Completed tournaments выбираем турнир
+    - нажимаем кнопку "Show"
+  expected-result: |
+    Откроется страница турнира с данными турнира
+
+- summary: |
+    Проверка возможности участвовать в уже созданном турнире
+  requirement: |
+    Авторизованный пользователь должен иметь возможность участвовать в уже созданных турнирах
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#tournaments
+  test-data: |
+    emty
+  steps:
+    - В Live tournaments выбираем турнир
+    - Нажимаем кнопку "Show"
+    - В открытой странице турнира нажимаем кнопку "Join"
+  expected-result: |
+    В графе Total players будет указан ваш nickname
+
+- summary: |
+    Проверка возможности фильтровать игроков по рейтингу
+  requirement: |
+    Авторизованный пользователь должен иметь возможность фильтровать рейтинг игроков
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/users
+  test-data: |
+    emty
+  steps:
+    - Выбираем users rating период за наделю
+    - В значение rating нажимаем на стрелочку, указывающую вверх
+  expected-result: |
+    Рейтинг покажет игрока с самым большим рейтингом за неделю
+  
+- summary: |
+    Проверка возможности завершения игры, если выполнишь задание
+  requirement: |
+    Авторизованный пользователь должен иметь возможность завершить игру выполнив задание
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+    Создана игра
+  test-data: |
+    Параметры игры: level = 1, game type = with a bot, time control = 36 min, chose task = random task
+    Решение игры:
+    const _ = require("lodash");
+    const R = require("rambda");
+    const solution = (first, second) => {
+    return 0;};
+    module.exports = solution;
+  steps:
+    - Выбираем язык программирования Node.js
+    - В редактор кода прописываем решение игры
+    - Нажимаем на кнопку Check solution
+  expected-result: |
+    После проверки кода появляется сообщение о правильности решения
+
+- summary: |
+    Проверка возможности завершения игры по истечению времени
+  requirement: |
+    Авторизованный пользователь должен иметь возможность завершить игру по истечению времени
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+    Создана игра
+  test-data: |
+    Параметры игры: level = 1, game type = with a bot, time control = 3 min, chose task = random task
+  steps:
+    - Выбираем язык программирования Node.js
+  expected-result: |
+    После истечения времени игры появляется сообщение о том, что время закончилось и победителей в игре нет
+
+- summary: |
+    Проверка возможности сдаться во время игры
+  requirement: |
+    Авторизованный пользователь должен иметь возможность сдаться во время игры
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+    Создана игра
+  test-data: |
+    Параметры игры: level = 3, game type = with a bot, time control = 12 min, chose task = random task
+  steps:
+    - Нажимаем кнопку "Give up"
+    - В появившемся окне жмем на "Give up"
+  expected-result: |
+    Появляется сообщение о том, что игра проиграна
+
+- summary: |
+    Проверка возможности просматривания записей завершенных игр
+  requirement: |
+    Авторизованный пользователь должен иметь возможность просматривать в записи завершенные игры
+  prerequisites:
+    Открыта страница https://codebattle.hexlet.io/#completedGames
+  test-data: |
+    emty
+  steps:
+    - Выбираем игроков
+    - Нажимаем кнопку Show
+    - На странице проведенной игры нажимаем play
+  expected-result: |
+    Запускается запись проведенной игры
+
+- summary: |
+    Проверка возможности отправления фидбека во время игры
+  requirement: |
+    Все пользователи должны иметь возможность отправлять фидбек во время игры
+  prerequisites:
+    Открыта страница https://codebattle.hexlet.io/
+  test-data: |
+    emty
+  steps:
+    - Нажимаем кнопку "TRY SIMPLE BATTLE"
+    - В правом нижнем углу нажимаем на кнопку "Send Feedback"
+    - В Feedback Type выбираем "Improvement"
+    - В столбце Message пишем сообщение 
+    - Нажимаем кнопку Send feedback
+  expected-result: |
+    Появляется сообщение о том, что отзыв успешно отправлен
+
+- summary: |
+    Проверка возможности продолжения игры, если у игрока был вылет
+  requirement: |
+    Если во время игры один из игроков вылетел из игры, второй может продолжать 
+    играть, а первый в любой момент, пока незакончена игра, может переподключиться в игру
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+    Создана игра
+  test-data: |
+    Параметры игры: level = 3, game type = with other users, time control = 12 min, chose task = random task
+  steps:
+    - Отключаем интернет
+    - Нажимаем на кнопку check solution
+    - Перезагружаем страницу
+    - Заново включаем интернет
+    - Перезагружаем страницу
+  expected-result: |
+   После переподключения интернета можно вернуться в игру
+
+- summary: |
+    Отображение возможности выбора языка в игре
+  requirement: |
+    Задачи в игре должны быть даны на двух языках — русском и английском
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+    Создана игра
+  test-data: |
+    Параметры игры: level = 1, game type = with a bot, time control = 12 min, chose task = random task
+  steps:
+    - Меняем локализацию с "RU" на "EN"
+  expected-result: |
+   После смены локализации задача отображена на английском
+
+- summary: |
+   Проверка возможности выбора языка программирования в игре
+  requirement: |
+    В игре должна быть возможность выбора языка программирования для выполнения заданной задачи
+  prerequisites:
+    Пользователь авторизован
+    Открыта страница https://codebattle.hexlet.io/#lobby
+    Создана игра
+  test-data: |
+    Параметры игры: level = 1, game type = with a bot, time control = 8 min, chose task = random task
+  steps:
+    - Слева в списке выбираем язык Java 20
+  expected-result: |
+   Синтаксис в редакторе кода меняется с учетом выбранного языка
+
+- summary: |
+    Проверка работы сайта в браузере Opera версия — 103.0.4928.34
+  requirement: |
+    Сайт должен быть протестирован на совместимость с последними версиями браузеров
+  prerequisites: |
+    Пользователь авторизован
+    Открыта главная страница https://codebattle.hexlet.io/#lobby в браузере Opera
+  test-data: |
+    Emty
+  steps:
+    - Проверяем все основные функциональные элементы и переходим по всем вкладкам и страницам
+  expected-result: |
+    Сайт работает корректно в браузерe версии Opera 103.0.4928.34
+    
+- summary: |
+    Проверка работы сайта в браузере Firefox версия — 116.0.3(64-битная)
+  requirement: |
+    Сайт должен быть протестирован на совместимость с последними версиями браузеров
+  prerequisites: |
+    Пользователь авторизован
+    Открыта главная страница https://codebattle.hexlet.io/#lobby в браузере Firefox
+  test-data: |
+    Emty
+  steps:
+    - Проверяем все основные функциональные элементы и переходим по всем вкладкам и страницам
+  expected-result: |
+    Сайт работает корректно в браузерe Firefox версии — 116.0.3(64-битная)
+
+- summary: |
+    Проверка удобности сайта на мобильном устройстве 
+  requirement: |
+    Сайт должен быть удобным на мобильном устройстве
+  prerequisites: |
+    Пользователь авторизован
+    Открыта главная страница https://codebattle.hexlet.io/#lobby в браузере Firefox
+  test-data: |  
+    Устройство = Iphone 12 Pro
+  steps:
+    - Проверяем все основные функциональные элементы и переходим по всем вкладкам и страницам
+  expected-result: |
+    Сайт корректно отображается на мобильном устройстве
