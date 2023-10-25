@@ -36,7 +36,7 @@
   prerequisites:
     Открыта страница авторизации https://codebattle.hexlet.io/session/new?locale=en&next=%2F
   test-data: |
-    Email = alexmurderer@mail.ru Password = alexov234
+    Email = owers1234@mail.ru Password = alexov234
   steps:
     - Вводим Email
     - Вводим Password
@@ -83,7 +83,7 @@
   prerequisites:
     Открыта страница авторизации https://codebattle.hexlet.io/session/new?locale=en&next=%2F, открыт email
   test-data: |
-    Email = alexmurderer@mail.ru
+    Email = Alextest@gmail.com
   steps:
     - Нажимаем на кнопку Forgot your password?
     - Вводим Email
